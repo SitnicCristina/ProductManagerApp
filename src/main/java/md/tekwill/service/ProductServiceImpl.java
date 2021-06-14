@@ -1,7 +1,5 @@
 package md.tekwill.service;
 
-
-import md.tekwill.dao.InMemoryProductRepository;
 import md.tekwill.dao.ProductRepository;
 import md.tekwill.entity.product.Drink;
 import md.tekwill.entity.product.Food;
@@ -33,38 +31,41 @@ public class ProductServiceImpl implements ProductService{
         productRepository.save(food);
     }
 
-   /* @Override
+    @Override
     public List<Product> getAll(){
-        return InMemoryProductRepository.findAll();
+        return productRepository.findAll();
     }
 
     @Override
     public List<Product> getAllNonExpired(){
-
+        //TO DO update
+        return productRepository.findAll();
     }
 
     @Override
     public List<Product> getAllExpired(){
-
+        //TO DO update
+        return productRepository.findAll();
     }
 
     @Override
     public Product getById(int id){
-
+        return productRepository.findById(id);
     }
-*/
-    @Override
-    public void update(int id, double volume) throws ProductUpdateUnknownPropertyException{
 
+    @Override
+    public void update(int id, double price) throws ProductUpdateUnknownPropertyException{
+        productRepository.update(id,price);
     }
 
     @Override
     public void update(int id, FoodCategory category) throws ProductUpdateUnknownPropertyException {
+        productRepository.update(id,category);
     }
-/*
+
     @Override
     public void delete(int id){
-
+        productRepository.delete(id);
     }
-    */
+
 }

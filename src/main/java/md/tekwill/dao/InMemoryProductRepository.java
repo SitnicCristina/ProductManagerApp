@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class InMemoryProductRepository implements ProductRepository {
 
-    List<Product> productList;
+    private final List<Product> productList = new ArrayList<>();
 
     public InMemoryProductRepository() {
         Food sushi = new Food("Sushi",5.99, LocalDate.now().plusDays(7), FoodCategory.ANIMAL_SOURCE);
@@ -27,13 +27,13 @@ public class InMemoryProductRepository implements ProductRepository {
         bread.setId(3);
 
         Drink tea = new Drink("Tea",2.49, LocalDate.now().plusMonths(1), 1.5);
-        tea.setId(3);
+        tea.setId(4);
         Drink beer = new Drink("Beer",3.49, LocalDate.now().plusMonths(1), 0.5);
-        beer.setId(3);
+        beer.setId(5);
         Drink juice = new Drink("Juice",1.49, LocalDate.now().plusMonths(1), 2.0);
-        juice.setId(3);
+        juice.setId(6);
         Drink coffee = new Drink("Coffee",19.99, LocalDate.now().minusDays(2), 1.0);
-        coffee.setId(3);
+        coffee.setId(7);
 
         productList.add(sushi);
         productList.add(avocado);

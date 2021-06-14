@@ -17,17 +17,55 @@ public class ProductManagementUserMenu {
         this.scanner = scanner;
     }
 
-    public void showMenu(){
+    public void showMenu() {
         System.out.println("Available options:");
-        System.out.println("==============ADMIN OPTIONS=============");
+        System.out.println("==============USER OPTIONS==============");
         System.out.println("[1] View all products");
-        System.out.println("[2] View all expired products");
-        System.out.println("[3] Add new product");
-        System.out.println("[4] Update food product");
-        System.out.println("[5] Update drink food");
-        System.out.println("[6] remove product");
+        System.out.println("[2] View shopping cart");
+        System.out.println("[3] Add product to shopping cart");
+        System.out.println("[4] Print bill");
         System.out.println("========================================");
         System.out.println("[0] Exit");
         System.out.println("========================================");
+    }
+
+    public boolean handleUserChoice(int option) {
+        switch (option) {
+            case 1:
+                viewAllNonExpiredProducts();
+                break;
+            case 2:
+                viewShoppingCart();
+                break;
+            case 3:
+                addProductToShoppingCart();
+                break;
+            case 4:
+                printBill();
+                break;
+            case 0:
+                System.out.println("The app is closed. BYE ");
+                return true;
+            default:
+                System.out.println("Your option is wrong! Please enter again: \n");
+                break;
+        }
+        return false;
+    }
+
+    private void viewAllNonExpiredProducts() {
+
+    }
+
+    private void viewShoppingCart() {
+
+    }
+
+    private void addProductToShoppingCart() {
+
+    }
+
+    private void printBill() {
+
     }
 }
