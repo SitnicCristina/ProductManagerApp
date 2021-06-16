@@ -1,7 +1,6 @@
 package md.tekwill;
 
 import md.tekwill.entity.product.Product;
-import md.tekwill.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;

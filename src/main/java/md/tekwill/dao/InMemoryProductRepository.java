@@ -90,9 +90,10 @@ public class InMemoryProductRepository implements ProductRepository {
                 product = p;
             }
         }
+        /*
         if (product == null) {
             throw new ProductNotFoundException("Product with name " + name + " does not exist in our system!");
-        }
+        }*/
         return product;
     }
 

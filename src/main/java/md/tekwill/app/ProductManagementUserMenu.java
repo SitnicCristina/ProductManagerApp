@@ -1,6 +1,7 @@
 package md.tekwill.app;
 
 import md.tekwill.ShoppingCart;
+import md.tekwill.entity.product.Product;
 import md.tekwill.service.ProductService;
 
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class ProductManagementUserMenu {
     public void showMenu() {
         System.out.println("Available options:");
         System.out.println("==============USER OPTIONS==============");
-        System.out.println("[1] View all products");
+        System.out.println("[1] View all available products");
         System.out.println("[2] View shopping cart");
         System.out.println("[3] Add product to shopping cart");
         System.out.println("[4] Print bill");
@@ -54,18 +55,33 @@ public class ProductManagementUserMenu {
     }
 
     private void viewAllNonExpiredProducts() {
-
+        System.out.println("--- ALL AVAILABLE PRODUCTS ---");
+        for (Product product : productService.getAllNonExpired()) {
+            System.out.println(product.getPrintText());
+        }
     }
 
     private void viewShoppingCart() {
-
+        if(cart.getProductList().isEmpty()){
+            System.out.println("Empty!");
+        }else{
+            System.out.println("--- SHOPPING CART CONTENT ---");
+        System.out.println(cart.getProductList());}
     }
 
     private void addProductToShoppingCart() {
-
+        System.out.println("Input the id of the item to add to cart: ");
+        int id = scanner.nextInt();
+        cart.addProduct(productService.getById(id));
+        System.out.println("Product with ID " + id + " successfully added!");
     }
 
     private void printBill() {
+        if(cart.getProductList().isEmpty()){
+            System.out.println("No product yet! ");
+        }else{
+            System.out.println(cart.getPrice());
+        }
 
     }
 }

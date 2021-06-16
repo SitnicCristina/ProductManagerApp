@@ -1,6 +1,7 @@
 package md.tekwill.app;
 
 import md.tekwill.entity.product.FoodCategory;
+import md.tekwill.entity.product.Product;
 import md.tekwill.service.ProductService;
 
 import java.time.LocalDate;
@@ -63,21 +64,27 @@ public class ProductManagementAdminMenu {
 
     private void viewAllProducts() {
         System.out.println("--- ALL EXISTING PRODUCTS ---");
-        System.out.println(productService.getAll());
+        for (Product product : productService.getAll()) {
+            System.out.println(product.getPrintText());
+        }
     }
 
     private void viewAllExpiredProducts() {
         System.out.println("--- ALL EXPIRED PRODUCTS ---");
-        System.out.println(productService.getAllExpired());
+        for (Product product : productService.getAllExpired()) {
+            System.out.println(product.getPrintText());
+        }
     }
 
     private void addNewProduct() {
         System.out.println("--- ADD NEW PRODUCT ---");
         System.out.println("Input the name of the product: ");
+        scanner.nextLine();
         String addNewName = scanner.nextLine();
 
         System.out.println("Input the price of the product: ");
         double addNewPrice = scanner.nextDouble();
+        scanner.nextLine();
 
         System.out.println("Input the best before of the product (such '2021-12-03'): ");
         String addNewDate = scanner.nextLine();
@@ -90,7 +97,7 @@ public class ProductManagementAdminMenu {
         if (addTypeProduct.equalsIgnoreCase("food")) {
             System.out.println("What category is that? (Categories[ANIMAL_SOURCE, FRUIT, GRAIN]): ");
             String addNewCategory = scanner.nextLine();
-            productService.create(addNewName, addNewPrice, parsedAddNewDate, FoodCategory.valueOf(addNewCategory));
+            productService.create(addNewName, addNewPrice, parsedAddNewDate, FoodCategory.valueOf(addNewCategory.toUpperCase()));
             System.out.println("Food " + addNewName + " successfully created!");
         } else if (addTypeProduct.equalsIgnoreCase("drink")) {
             System.out.println("What volume is that? ");
@@ -119,9 +126,9 @@ public class ProductManagementAdminMenu {
     }
 
     private void removeProduct() {
-        sout
-       /*
-        Car car = findById(id);
-        cars.remove(car);*/
+        System.out.println("Input the id of the product to delete: ");
+        int id = scanner.nextInt();
+        productService.delete(id);
+        System.out.println("Product with ID " + id + " is successfully deleted");
     }
 }

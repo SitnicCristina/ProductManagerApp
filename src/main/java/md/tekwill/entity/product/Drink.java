@@ -21,7 +21,7 @@ public class Drink extends Product {
 
     @Override
     public String getPrintText() {
-        return "[" + id +"]" + "DRINK:" + name + "|" + price + "|" + bestBefore + "|" + volume + "\n";
+        return "[" + id +"]" + "DRINK:" + name + "|" + price + "|" + bestBefore + "|" + volume;
     }
 
     @Override
@@ -46,7 +46,14 @@ public class Drink extends Product {
 
     @Override
     public String toString() {
-        return this.getPrintText();
+        return "Drink{" +
+                "DISCOUNT=" + DISCOUNT +
+                ", volume=" + volume +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", bestBefore=" + bestBefore +
+                '}';
     }
 }
 

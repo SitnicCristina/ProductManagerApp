@@ -9,6 +9,7 @@ import md.tekwill.entity.product.Product;
 import md.tekwill.exceptions.ProductUpdateUnknownPropertyException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService{
@@ -38,14 +39,26 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getAllNonExpired(){
-        //TO DO update
-        return productRepository.findAll();
+        List<Product> productList = productRepository.findAll();
+        List<Product> expiredProductList = new ArrayList<>();
+        for(Product product: productList){
+            if(product.getBestBefore().compareTo(LocalDate.now()) > 0){
+                expiredProductList.add(product);
+            }
+        }
+        return expiredProductList;
     }
 
     @Override
     public List<Product> getAllExpired(){
-        //TO DO update
-        return productRepository.findAll();
+        List<Product> productList = productRepository.findAll();
+        List<Product> expiredProductList = new ArrayList<>();
+        for(Product product: productList){
+            if(product.getBestBefore().compareTo(LocalDate.now()) < 0){
+                expiredProductList.add(product);
+            }
+        }
+        return expiredProductList;
     }
 
     @Override
