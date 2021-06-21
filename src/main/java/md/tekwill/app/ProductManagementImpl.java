@@ -1,6 +1,7 @@
 package md.tekwill.app;
 
 import md.tekwill.ShoppingCart;
+import md.tekwill.exceptions.ProductUpdateUnknownPropertyException;
 import md.tekwill.service.ProductService;
 
 import java.util.Scanner;
@@ -18,11 +19,12 @@ public class ProductManagementImpl implements ProductManagement {
     }
 
     @Override
-    public void run() {
-        System.out.println("\n============================================");
-        System.out.println("\n\tWelcome to Product Management App");
-        System.out.println("\n============================================");
-        System.out.println("Press 'Enter' to continue ...");
+    public void run() throws ProductUpdateUnknownPropertyException {
+        System.out.print("\n============================================"+
+                           "\n\tWelcome to Product Management App"+
+                           "\n============================================"+
+                           "\nPress 'Enter' to continue ..."+
+                            "\n>>");
         String userString = scanner.nextLine();
         if (userString.equalsIgnoreCase("admin")) {
             boolean exitProgram = false;

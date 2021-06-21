@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import md.tekwill.exceptions.ProductExistException;
-import md.tekwill.exceptions.ProductNotFoundException;
+import md.tekwill.exceptions.ProductExistsException;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,7 +24,6 @@ public class InMemoryProductRepository implements ProductRepository {
         avocado.setId(2);
         Food bread = new Food("Bread",0.99, LocalDate.now().plusDays(2), FoodCategory.GRAIN);
         bread.setId(3);
-
         Drink tea = new Drink("Tea",2.49, LocalDate.now().plusMonths(1), 1.5);
         tea.setId(4);
         Drink beer = new Drink("Beer",3.49, LocalDate.now().plusMonths(1), 0.5);
@@ -47,7 +45,7 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public void save(Product product){
         if(findByName(product.getName()) != null){
-            throw new ProductExistException("Product with name " + product.getName() + "already exist!");
+            throw new ProductExistsException("Product with name " + product.getName() + "already exist!");
         }
         product.setId(getMaxId()+1);
         productList.add(product);
@@ -76,9 +74,6 @@ public class InMemoryProductRepository implements ProductRepository {
                 product = p;
             }
         }
-        if (product == null) {
-            throw new ProductNotFoundException("Product with ID " + id + " does not exist in our system!");
-        }
         return product;
     }
 
@@ -90,23 +85,25 @@ public class InMemoryProductRepository implements ProductRepository {
                 product = p;
             }
         }
-        /*
-        if (product == null) {
-            throw new ProductNotFoundException("Product with name " + name + " does not exist in our system!");
-        }*/
         return product;
     }
 
     @Override
-    public void update(int id, double newPrice) {
-        Product product = findById(id);
-        product.setPrice(newPrice);
+    public void update(int id, double volume) {
+        for (Product p : productList) {
+            if (id == p.getId()) {
+                ((Drink) p).setVolume(volume);
+            }
+        }
     }
 
     @Override
-    public void update(int id, FoodCategory newFoodCategory) {
-        Food food = (Food) findById(id);
-        food.setCategory(newFoodCategory);
+    public void update(int id, FoodCategory category) {
+        for (Product p : productList) {
+            if (id == p.getId()) {
+                ((Food) p).setCategory(category);
+            }
+        }
     }
 
     @Override

@@ -36,6 +36,6 @@ public abstract class Product implements Billable,Printable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, bestBefore);
+        return Objects.hash(id, name, price, bestBefore);
     }
 }

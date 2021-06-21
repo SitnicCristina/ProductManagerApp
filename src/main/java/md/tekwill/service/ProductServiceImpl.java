@@ -6,6 +6,8 @@ import md.tekwill.entity.product.Food;
 import md.tekwill.entity.product.FoodCategory;
 
 import md.tekwill.entity.product.Product;
+import md.tekwill.exceptions.ProductExistsException;
+import md.tekwill.exceptions.ProductNotFoundException;
 import md.tekwill.exceptions.ProductUpdateUnknownPropertyException;
 
 import java.time.LocalDate;
@@ -22,14 +24,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void create(String name, double price, LocalDate bestBefore, double volume){
-        Drink drink = new Drink(name,price,bestBefore,volume);
-        productRepository.save(drink);
+        productRepository.save(new Drink(name,price,bestBefore,volume));
     }
 
     @Override
     public void create(String name, double price, LocalDate bestBefore, FoodCategory category){
-        Food food = new Food(name,price,bestBefore,category);
-        productRepository.save(food);
+        if (productRepository.findByName(name) != null) {
+            throw new ProductExistsException("Product with name " + name + " already exists!");
+        }
+        productRepository.save(new Food(name,price,bestBefore,category));
     }
 
     @Override
@@ -63,17 +66,31 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getById(int id){
-        return productRepository.findById(id);
+        Product product = productRepository.findById(id);
+        if (product == null) {
+            throw new ProductNotFoundException("Product with id " + id + " not found!");
+        }
+        return product;
     }
 
     @Override
-    public void update(int id, double price) throws ProductUpdateUnknownPropertyException{
-        productRepository.update(id,price);
+    public void update(int id, double volume) throws ProductUpdateUnknownPropertyException{
+        Product product = getById(id);
+        if (product instanceof Drink) {
+            productRepository.update(id, volume);
+            return;
+        }
+        throw new ProductUpdateUnknownPropertyException("Product with id " + id + " is not drink!");
     }
 
     @Override
     public void update(int id, FoodCategory category) throws ProductUpdateUnknownPropertyException {
-        productRepository.update(id,category);
+        Product product = getById(id);
+        if (product instanceof Food) {
+            productRepository.update(id, category);
+            return;
+        }
+        throw new ProductUpdateUnknownPropertyException("Product with id " + id + " is not food!");
     }
 
     @Override

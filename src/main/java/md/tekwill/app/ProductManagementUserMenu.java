@@ -19,15 +19,16 @@ public class ProductManagementUserMenu {
     }
 
     public void showMenu() {
-        System.out.println("Available options:");
-        System.out.println("==============USER OPTIONS==============");
-        System.out.println("[1] View all available products");
-        System.out.println("[2] View shopping cart");
-        System.out.println("[3] Add product to shopping cart");
-        System.out.println("[4] Print bill");
-        System.out.println("========================================");
-        System.out.println("[0] Exit");
-        System.out.println("========================================");
+        System.out.print("\nAvailable options:\n"+
+                            "==============USER OPTIONS==============\n"+
+                            "[1] View all available products\n"+
+                            "[2] View shopping cart\n"+
+                            "[3] Add product to shopping cart\n"+
+                            "[4] Print bill\n"+
+                            "========================================\n"+
+                            "[0] Exit\n"+
+                            "========================================\n"+
+                            ">>");
     }
 
     public boolean handleUserChoice(int option) {

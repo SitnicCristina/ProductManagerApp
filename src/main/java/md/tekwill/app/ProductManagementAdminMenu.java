@@ -2,6 +2,7 @@ package md.tekwill.app;
 
 import md.tekwill.entity.product.FoodCategory;
 import md.tekwill.entity.product.Product;
+import md.tekwill.exceptions.ProductUpdateUnknownPropertyException;
 import md.tekwill.service.ProductService;
 
 import java.time.LocalDate;
@@ -19,20 +20,21 @@ public class ProductManagementAdminMenu {
     }
 
     public void showMenu() {
-        System.out.println("Available options:");
-        System.out.println("==============ADMIN OPTIONS=============");
-        System.out.println("[1] View all products");
-        System.out.println("[2] View all expired products");
-        System.out.println("[3] Add new product");
-        System.out.println("[4] Update food product");
-        System.out.println("[5] Update drink food");
-        System.out.println("[6] Remove product");
-        System.out.println("========================================");
-        System.out.println("[0] Exit");
-        System.out.println("========================================");
+        System.out.print("\nAvailable options:\n"+
+                            "==============ADMIN OPTIONS=============\n"+
+                            "[1] View all products\n"+
+                            "[2] View all expired products\n"+
+                            "[3] Add new product\n"+
+                            "[4] Update food product\n"+
+                            "[5] Update drink food\n"+
+                            "[6] Remove product\n"+
+                            "========================================\n"+
+                            "[0] Exit\n"+
+                            "========================================\n"+
+                            ">>");
     }
 
-    public boolean handleAdminChoice(int option) {
+    public boolean handleAdminChoice(int option) throws ProductUpdateUnknownPropertyException {
         switch (option) {
             case 1:
                 viewAllProducts();
@@ -108,21 +110,32 @@ public class ProductManagementAdminMenu {
     }
 
     private void updateFood() {
-        System.out.println("Input the id of food to update: ");
-        int id = scanner.nextInt();
-        System.out.println("Chose another category to update (Categories[ANIMAL_SOURCE, FRUIT, GRAIN]): ");
-        String updateCategoryTo = scanner.nextLine();
-        productService.update(id,FoodCategory.valueOf(updateCategoryTo));
-        System.out.println("Product with ID " + id + " is successfully updated");
+        try {
+            System.out.println("Input the id of food to update: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Chose another category to update (Categories[ANIMAL_SOURCE, FRUIT, GRAIN]): ");
+            String updateCategoryTo = scanner.nextLine();
+            productService.update(id, FoodCategory.valueOf(updateCategoryTo.toUpperCase()));
+            System.out.println("Product with ID " + id + " is successfully updated");
+        } catch (Exception ex) {
+            scanner.nextLine();
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
 
     private void updateDrink() {
-        System.out.println("Input the id of drink to update: ");
-        int id = scanner.nextInt();
-        System.out.println("Chose another volume to update: ");
-        double updateVolumeTo = scanner.nextDouble();
-        productService.update(id,updateVolumeTo);
-        System.out.println("Product with ID " + id + " is successfully updated");
+        try {
+            System.out.println("Input the id of drink to update: ");
+            int id = scanner.nextInt();
+            System.out.println("Chose another volume to update: ");
+            double updateVolumeTo = scanner.nextDouble();
+            productService.update(id, updateVolumeTo);
+            System.out.println("Product with ID " + id + " is successfully updated");
+        } catch (Exception ex) {
+            scanner.nextLine();
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
 
     private void removeProduct() {
