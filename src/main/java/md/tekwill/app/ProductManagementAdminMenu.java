@@ -26,7 +26,7 @@ public class ProductManagementAdminMenu {
                             "[2] View all expired products\n"+
                             "[3] Add new product\n"+
                             "[4] Update food product\n"+
-                            "[5] Update drink food\n"+
+                            "[5] Update drink product\n"+
                             "[6] Remove product\n"+
                             "========================================\n"+
                             "[0] Exit\n"+
@@ -97,7 +97,7 @@ public class ProductManagementAdminMenu {
         String addTypeProduct = scanner.nextLine();
 
         if (addTypeProduct.equalsIgnoreCase("food")) {
-            System.out.println("What category is that? (Categories[ANIMAL_SOURCE, FRUIT, GRAIN]): ");
+            System.out.println("What category is that? (Categories[GRAIN, VEGETABLE, FRUIT, DAIRY, ANIMAL_SOURCE]): ");
             String addNewCategory = scanner.nextLine();
             productService.create(addNewName, addNewPrice, parsedAddNewDate, FoodCategory.valueOf(addNewCategory.toUpperCase()));
             System.out.println("Food " + addNewName + " successfully created!");
@@ -114,7 +114,7 @@ public class ProductManagementAdminMenu {
             System.out.println("Input the id of food to update: ");
             int id = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("Chose another category to update (Categories[ANIMAL_SOURCE, FRUIT, GRAIN]): ");
+            System.out.println("Chose another category to update (Categories[GRAIN, VEGETABLE, FRUIT, DAIRY, ANIMAL_SOURCE]): ");
             String updateCategoryTo = scanner.nextLine();
             productService.update(id, FoodCategory.valueOf(updateCategoryTo.toUpperCase()));
             System.out.println("Product with ID " + id + " is successfully updated");

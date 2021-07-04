@@ -15,7 +15,7 @@ public interface ProductRepository {
 
     Product findByName(String name);
 
-    void update(int id, double newPrice);
+    void update(int id, double volume);
 
     void update(int id, FoodCategory newFoodCategory);
 
